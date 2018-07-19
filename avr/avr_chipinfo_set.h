@@ -1,10 +1,16 @@
 #ifndef AVR_CHIPINFO_SET_H
 #define AVR_CHIPINFO_SET_H
 
+struct AvrChipIoRegBit {
+    char *name;
+    char *comment;
+};
+
 struct AvrChipIoRegInfo {
     unsigned int address;
     char name[10];
     char *comment;
+    struct AvrChipIoRegBit bitInfo[8];
 };
 
 struct AvrChipIntInfo {

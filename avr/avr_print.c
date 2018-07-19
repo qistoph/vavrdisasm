@@ -217,6 +217,13 @@ int avr_instruction_print(struct instruction *instr, FILE *out, int flags) {
                                 if (fprintf(out, "\t; %s (%s)",
                                             instr->chip_info->ioRegs[r].name,
                                             instr->chip_info->ioRegs[r].comment) < 0) return -1;
+
+                                if (instrDisasm->instructionInfo->operandTypes[1] == OPERAND_BIT) {
+                                    struct AvrChipIoRegBit bit_info = instr->chip_info->ioRegs[r].bitInfo[instrDisasm->operandDisasms[1]];
+                                    if (bit_info.name[0] != '\0') {
+                                        if (fprintf(out, " %s (%s)", bit_info.name, bit_info.comment) == 0) return -1;
+                                    }
+                                }
                                 break; // Stop looking for match when found
                             }
                         }
